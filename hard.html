@@ -11,7 +11,9 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
+      padding: 10px;
       background: linear-gradient(135deg, #b0efff, #5ea1ff);
+      box-sizing: border-box;
     }
 
     h2 {
@@ -109,8 +111,8 @@
         // Congratulation! を大きく表示
         result.innerHTML = `
         <span class="congrat">🎉 Congratulations! 🎉</span><br>
-        <span class="message">あなたは無事に全ての謎を解決できました！<br>
-        この画面を係員に見せるとお菓子を交換できます。</span>`;
+        <span class="message">あなたは無事に<br>全ての謎を解決できました！<br><br>
+        この画面を係員に見せると<br>お菓子を交換できます。</span>`;
       } else {
         result.textContent = "❌ 不正解…もう一度！";
         result.className = "wrong";
