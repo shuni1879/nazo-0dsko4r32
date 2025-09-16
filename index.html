@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>謎解き</title>
+  <style>
+    /* 基本スタイル */
+    body {
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 10px;
+      background: linear-gradient(135deg, #b0efff, #5ea1ff);
+      box-sizing: border-box;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    input, button {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin: 8px 0;
+      width: 90%;
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+
+    input {
+      border: 2px solid #333;
+      text-align: center;
+    }
+
+    button {
+      background: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .congrat {
+      color: #474aff;
+      font-size: 2.5rem;   /* 大きく強調 */
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+      animation: pop 0.5s ease forwards;
+    }
+
+    .message {
+      color: #000;
+      font-size: 1.1rem;
+    }
+
+    .next-btn {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      background: #ff3333;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .next-btn:hover {
+      background: #940202;
+    }
+
+    .wrong {
+      color: #e74c3c;
+      animation: shake 0.4s ease;
+      font-size: 1rem;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <h2>答えを入力してください</h2>
+  <div id="quiz-area">
+    <input type="text" id="answer" placeholder="答えを入力">
+    <button onclick="checkAnswer()">判定</button>
+  </div>
+  <p id="result"></p>
+
+  <script>
+    function checkAnswer() {
+      const input = document.getElementById("answer").value.trim();
+      const result = document.getElementById("result");
+      const correctAnswers = ["こうかくるい", "甲殻類"];
+
+      if (correctAnswers.includes(input.toLowerCase())) {
+        document.body.style.background = "linear-gradient(135deg, #f6d365, #fda085)";
+        document.getElementById("quiz-area").style.display = "none";
+        document.querySelector("h2").style.display = "none";
+
+        result.innerHTML = `
+          <span class="congrat">🎉 Congratulations! 🎉</span>
+          <span class="message">この画面を係員に見せると<br>お菓子を交換できます。<br><br><br>
+            ↓追加のお菓子をGETしよう！<br>
+          <button class="next-btn" onclick="goNext()">追加の謎に挑戦する</button>
+        `;
+      } else {
+        result.textContent = "❌ 不正解…もう一度！";
+        result.className = "wrong";
+        document.getElementById("answer").value = "";
+      }
+    }
+
+    function goNext() {
+      window.location.href = "hard.html";
+    }
+  </script>
+</body>
+</html>
