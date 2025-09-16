@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>追加の謎に挑戦</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #b0efff, #5ea1ff);
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    input {
+      border: 2px solid #333;
+      width: 200px;
+      text-align: center;
+    }
+
+    button {
+      background: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .congrat {
+      color: #474aff;
+      font-size: 50px;   /* 大きく強調 */
+      font-weight: bold;
+      display: block;
+      margin-bottom: 15px;
+      animation: pop 0.5s ease forwards;
+    }
+
+    .message {
+      color: #000000;
+      font-size: 20px;   /* 普通サイズ */
+    }
+
+    .wrong {
+      color: #e74c3c;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <h2>答えを入力してください</h2>
+  <p>誤って押した場合はブラウザを戻るか、<br>もう一度QRコードを読み込んでください</p>
+  <div id="quiz-area">
+    <input type="text" id="answer" placeholder="答えを入力">
+    <button onclick="checkAnswer()">判定</button>
+  </div>
+  <p id="result"></p>
+
+  <script>
+    function checkAnswer() {
+      const input = document.getElementById("answer").value.trim();
+      const result = document.getElementById("result");
+      const correctAnswers = ["ゆうしきしゃ", "有識者"];
+
+    if (correctAnswers.includes(input.toLowerCase())) {
+        // 入力欄とボタンを消す
+        document.body.style.background = "linear-gradient(135deg, #f6d365, #fda085)";
+        document.getElementById("quiz-area").style.display = "none";
+        document.querySelector("h2").style.display = "none";
+        document.querySelector("p").style.display = "none";
+
+        // Congratulation! を大きく表示
+        result.innerHTML = `
+        <span class="congrat">🎉 Congratulations! 🎉</span><br>
+        <span class="message">あなたは無事に全ての謎を解決できました！<br>
+        この画面を係員に見せるとお菓子を交換できます。</span>`;
+      } else {
+        result.textContent = "❌ 不正解…もう一度！";
+        result.className = "wrong";
+        document.getElementById("answer").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
